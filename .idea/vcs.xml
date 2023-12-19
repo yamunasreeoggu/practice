@@ -4,6 +4,8 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/exp_ansible" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/exp_shell" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/practice_misc" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/robo_ansible" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/robo_shell" vcs="Git" />
   </component>
 </project>
