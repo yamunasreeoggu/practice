@@ -25,15 +25,17 @@
 #  when: cert_files.matched > 0
 #  register: cert_details
 
+- name: To set permissions for customcertlog file
+  file:
+    path: /tmp/customcert.log
+    mode: '0644'
+    state: touch
+
 - name: Extract certificate details
   shell:
     cert_name=$(basename {{ item.path }})
     echo "CertName=$cert_name" >> /tmp/customcert.log
   loop: "{{ cert_files.files }}"
 
-- name: To set permissions for customlog file
-  file:
-    path: /tmp/customcert.log
-    mode: '0644'
-    state: touch
+
 
