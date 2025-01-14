@@ -1,0 +1,4 @@
+- name : Creating custom log file for certificate details
+  hosts: localhost
+  roles:
+    - custom_log_creation
