@@ -1,0 +1,4 @@
+- name: create working directory
+  ansible.builtin.file:
+    path: /tmp/cert_info
+    state: directory
