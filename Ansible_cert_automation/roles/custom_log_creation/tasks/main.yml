@@ -15,15 +15,15 @@
     recurse: yes
   register: cert_files
 
-- name: Extract details from each certificate
-  shell:
-    cert_name=$(basename {{ item.path }})
-    #cert_expiry=$(openssl x509 -in {{ item.path }} -noout -enddate | cut -d= -f2)
-    #cert_san=$(openssl x509 -in {{ item.path }} -noout -ext subjectAltname | cut -d= f2 | tr -d '\n\' | sed 's/,/ /g')
-    echo "Cert Name: $cert_name" >> /tmp/customcert.log
-  loop: "{{ cert_files.files }}"
-  when: cert_files.matched > 0
-  register: cert_details
+#- name: Extract details from each certificate
+#  shell:
+#    cert_name=$(basename {{ item.path }})
+#    cert_expiry=$(openssl x509 -in {{ item.path }} -noout -enddate | cut -d= -f2)
+#    cert_san=$(openssl x509 -in {{ item.path }} -noout -ext subjectAltname | cut -d= f2 | tr -d '\n\' | sed 's/,/ /g')
+#    echo "Cert Name: $cert_name" >> /tmp/customcert.log
+#  loop: "{{ cert_files.files }}"
+#  when: cert_files.matched > 0
+#  register: cert_details
 
 
 
