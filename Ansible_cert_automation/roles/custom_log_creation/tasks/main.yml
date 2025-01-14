@@ -29,6 +29,6 @@
   shell:
     cert_name=$(basename {{ item.path }})
     echo "CertName=$cert_name" >> /tmp/customcert.log
-  loop: {{ cert_files.files }}
+  loop: "{{ cert_files.files }}"
 
 
