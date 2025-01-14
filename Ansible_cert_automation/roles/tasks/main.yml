@@ -1,7 +1,7 @@
-- name: remove temporary folder before job starts
-  ansible.builtin.file:
-    state: absent
-    path: /tmp/cert_info
+#- name: remove temporary folder before job starts
+#  ansible.builtin.file:
+#    state: absent
+#    path: /tmp/cert_info
 
 - name: recreate temporary folder
   ansible.builtin.file:
