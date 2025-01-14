@@ -9,4 +9,4 @@
     state: directory
 
 - name: to get the list of certificates
-  ansible.builtin.shell: cd /etc/pki/tls/certs ; ll >> /tmp/cert_info/cert_list
+  ansible.builtin.shell: cd /etc/pki/tls/certs ; ls >> /tmp/cert_info/cert_list
