@@ -18,6 +18,7 @@
     paths: /etc/pki/tls/certs
     patterns: "*.crt"
     recurse: yes
+    file_type: file
   register: cert_files
 
 - name: Display the found certificate files
