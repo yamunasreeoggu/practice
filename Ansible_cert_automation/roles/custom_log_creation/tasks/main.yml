@@ -8,8 +8,15 @@
     path: /tmp/cert_info
     state: directory
 
+- name: remove log file
+  ansible.builtin.file:
+    path: /tmp/cert.log
+    state: absent
+
 - name: List certificates
   shell: ls -ltr /etc/pki/tls/certs >> /tmp/cert_info/cert_list
+
+
 
 #- name: to get the list of certificates
 #  ansible.builtin.find:
