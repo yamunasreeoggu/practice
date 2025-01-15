@@ -1,23 +1,23 @@
-- name: remove existing cert_info directory
-  ansible.builtin.file:
-    path: /tmp/cert_info
-    state: absent
-
-- name: recreate working directory
-  ansible.builtin.file:
-    path: /tmp/cert_info
-    state: directory
+#- name: remove existing cert_info directory
+#  ansible.builtin.file:
+#    path: /tmp/cert_info
+#    state: absent
+#
+#- name: recreate working directory
+#  ansible.builtin.file:
+#    path: /tmp/cert_info
+#    state: directory
 
 - name: to list certificates
-  shell: ls -ltr /etc/pki/tls/certs >> /tmp/cert_info/cert_list
-
-- name: to cat cert list
-  shell: cat /tmp/cert_info/cert_list
-  register: cert_list_output
+  shell: ls -ltr /etc/pki/tls/certs
+  register: cert_list
 
 - name: to view cert list
   debug:
-    var: cert_list_output
+    var: cert_list
+
+#- name: to extract the name of the certificate
+#  shell:
 
 - name: Extract Expiry date of certificate
   shell:
