@@ -38,12 +38,15 @@
 
 
 #
-#- name: Extract certname details
-#  shell:
-#    cert_name=$(basename {{ item.path }})
-#  loop: "{{ cert_files.files }}"
-#  register : cert_name_output
+- name: Extract certname details
+  shell:
+    cert_name=$(basename {{ item.path }})
+  loop: "{{ cert_files.files }}"
+  register : cert_name_output
 
+- name: To print cert_name
+  debug:
+    var: cert_name_output
 
 
 
