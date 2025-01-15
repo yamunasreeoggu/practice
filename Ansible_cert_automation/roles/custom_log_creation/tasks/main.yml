@@ -17,13 +17,13 @@
     src: /tmp/cert_info/cert_list
   register: cert_list_raw
 
-- name: Extract .crt files from cert_list
-  set_fact:
-      cert_names: "{{ cert_list_raw.content | b64decode | splitlines() | select('search', '\\.crt$') | list }}"
+#- name: Extract .crt files from cert_list
+#  set_fact:
+#      cert_names: "{{ cert_list_raw.content | b64decode | splitlines() | select('search', '\\.crt$') | list }}"
 
 - name: Display the names of the certificates
   debug:
-    var: cert_names
+    var: cert_list_raw
 
 
 #- name: Display the found certificate files
