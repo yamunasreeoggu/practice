@@ -15,7 +15,7 @@
 - name: Read cert_list file and filter .crt files
   ansible.builtin.slurp:
     src: /tmp/cert_info/cert_list
-    register: cert_list_raw
+  register: cert_list_raw
 
 - name: Extract .crt files from cert_list
   set_fact:
