@@ -19,7 +19,9 @@
 
 - name: Decode and split cert_list content into lines
   set_fact:
-    cert_list_lines: "{{ cert_list_raw.content | b64decode | splitlines() }}"
+    cert_list_lines: "{{ cert_list_raw.content | b64decode | split('\n') }}"
+
+
 
 - name: Extract certificate names ending with .crt
   set_fact:
