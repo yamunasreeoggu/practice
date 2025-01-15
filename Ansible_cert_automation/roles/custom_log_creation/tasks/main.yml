@@ -24,6 +24,7 @@
     path: /tmp/customcert.log
     mode: '0644'
     state: directory
+  ignore_errors: yes
 
 #- name: Extract details from each certificate
 #  shell:
