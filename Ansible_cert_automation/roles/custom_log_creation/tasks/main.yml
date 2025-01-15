@@ -16,7 +16,9 @@
 - name: List certificates
   shell: ls -ltr /etc/pki/tls/certs >> /tmp/cert_info/cert_list
 
-
+- name: to view the list of certs
+  shell: cat /tmp/cert_info/cert_list
+  register: cert_list
 
 #- name: to get the list of certificates
 #  ansible.builtin.find:
