@@ -10,9 +10,12 @@
 
 - name: to list certificates
   shell: ls -ltr /etc/pki/tls/certs >> /tmp/cert_info/cert_list
+
+- name: to cat cert list
+  shell: cat /tmp/cert_info/cert_list
   register: cert_list_output
 
-- name: cat cert list
+- name: to view cert list
   debug:
     var: cert_list_output
 
