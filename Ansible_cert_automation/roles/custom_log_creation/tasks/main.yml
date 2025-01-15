@@ -21,29 +21,21 @@
   set_fact:
     cert_list_lines: "{{ cert_list_raw.content | b64decode | split('\n') }}"
 
-
-
 - name: Extract certificate names ending with .crt
   set_fact:
     cert_names: "{{ cert_list_lines | select('search', '\\.crt$') | list }}"
-
-#- name: Extract .crt files from cert_list
-#  set_fact:
-#      cert_names: "{{ cert_list_raw.content | b64decode | splitlines() | select('search', '\\.crt$') | list }}"
 
 - name: Display the names of the certificates
   debug:
     var: cert_names
 
+- name: Extract Cert Expiry Date
+  shell: openssl x509 -in ca-bundle.crt -noout -enddate | cut -d= -f2
+  register: expiry_date
 
-#- name: Display the found certificate files
-#  debug:
-#    var: cert_files.files
-
-#- name: Extract Cert Expiry Date
-#  shell: openssl x509 -in ca-bundle.crt -noout -enddate | cut -d= -f2
-#  register: expiry_date
-
+- name: Display the names of the certificates
+  debug:
+    var: expiry_date
 
 #- name: To create customcertlog file
 #  file:
