@@ -8,12 +8,14 @@
 #    path: /tmp/cert_info
 #    state: directory
 
-- name: to list certificates
-  shell: ls -ltr /etc/pki/tls/certs
+- name: To list certificates
+  shell: find /etc/pki/tls/certs -name "*.crt" -exec basename {} \;
   register: cert_list
 
 #- name: Extract the name of the certificate
 #  shell:
+#  register:
+
 
 - name: Extract Expiry date of certificate
   shell:
