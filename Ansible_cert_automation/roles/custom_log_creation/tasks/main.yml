@@ -12,11 +12,7 @@
   shell: ls -ltr /etc/pki/tls/certs
   register: cert_list
 
-- name: to view cert list
-  debug:
-    var: cert_list
-
-#- name: to extract the name of the certificate
+#- name: Extract the name of the certificate
 #  shell:
 
 - name: Extract Expiry date of certificate
