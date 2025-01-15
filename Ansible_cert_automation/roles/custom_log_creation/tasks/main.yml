@@ -15,11 +15,15 @@
     recurse: yes
   register: cert_files
 
+- name: To print cert_files
+  debug:
+    var: cert_files
+
 - name: To create customcertlog file
   file:
     path: /tmp/customcert.log
     mode: '0644'
-    state: touch
+    state: directory
 
 #- name: Extract details from each certificate
 #  shell:
