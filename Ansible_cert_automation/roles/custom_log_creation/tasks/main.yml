@@ -12,11 +12,6 @@
   shell: find /etc/pki/tls/certs -name "*.crt" -exec basename {} \;
   register: cert_list
 
-#- name: Extract the name of the certificate
-#  shell:
-#  register:
-
-
 - name: Extract Expiry date of certificate
   shell:
     cd /etc/pki/tls/certs && openssl x509 -in ca-bundle.crt -noout -enddate | cut -d= -f2
