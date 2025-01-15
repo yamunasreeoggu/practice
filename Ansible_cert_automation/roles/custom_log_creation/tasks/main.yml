@@ -8,22 +8,23 @@
     path: /tmp/cert_info
     state: directory
 
-#- name: remove log file
-#  ansible.builtin.file:
-#    path: /tmp/cert.log
-#    state: absent
-
-#- name: to get the list of certificates
-#  ansible.builtin.find:
-#    paths: /etc/pki/tls/certs
-#    patterns: "*.crt"
-#    recurse: yes
-#    file_type: file
-#    follow: true
-#  register: cert_files
-
 - name: to list certificates
   shell: ls -ltr /etc/pki/tls/certs >> /tmp/cert_info/cert_list
+  register: cert_list_output
+
+- name: Read cert_list file and filter .crt files
+  ansible.builtin.slurp:
+    src: /tmp/cert_info/cert_list
+    register: cert_list_raw
+
+- name: Extract .crt files from cert_list
+  set_fact:
+      cert_names: "{{ cert_list_raw.content | b64decode | splitlines() | select('search', '\\.crt$') | list }}"
+
+- name: Display the names of the certificates
+  debug:
+    var: cert_names
+
 
 #- name: Display the found certificate files
 #  debug:
