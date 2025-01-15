@@ -1,26 +1,21 @@
-#- name: remove existing cert_info directory
-#  ansible.builtin.file:
-#    path: /tmp/cert_info
-#    state: absent
-#
-#- name: recreate working directory
-#  ansible.builtin.file:
-#    path: /tmp/cert_info
-#    state: directory
-
 - name: To list certificates
   shell: find /etc/pki/tls/certs -name "*.crt" -exec basename {} \;
   register: cert_list
 
-- name: Extract Expiry date of certificate
-  shell:
-    cd /etc/pki/tls/certs && openssl x509 -in ca-bundle.crt -noout -enddate | cut -d= -f2
-  register: expiry_date
+- name: Iterate over list of certificates
+  loop: "{{ cert_list.stdout_lines }}"
+  block:
+    - name: Extract Expiry date of certificate
+      shell: "openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -enddate | cut -d= -f2"
+      register: expiry_date
 
-- name: Extract Serial Number of certificate
-  shell:
-    cd /etc/pki/tls/certs && openssl x509 -in ca-bundle.crt -noout -serial | cut -d= -f2
-  register: expiry_date
+    - name: Extract Serial Number of certificate
+      shell: "openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -serial | cut -d= -f2"
+      register: expiry_date
+
+    - name: Display the expiry date and serial number
+      debug:
+        msg: "Certificate: {{ item }} | Expiry Date: {{ expiry_date.stdout }} | Serial Number: {{ serial_number.stdout }}"
 
 
 
