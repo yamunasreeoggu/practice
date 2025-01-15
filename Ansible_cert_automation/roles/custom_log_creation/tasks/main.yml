@@ -17,14 +17,15 @@
 
 - name: To print cert_files
   debug:
-    var: cert_files
+    msg: "{{ lookup('file', item.path) }}"
+    loop: "{{ cert_files.files }}"
 
-- name: To create customcertlog file
-  file:
-    path: /tmp/customcert.log
-    mode: '0644'
-    state: directory
-  ignore_errors: yes
+#- name: To create customcertlog file
+#  file:
+#    path: /tmp/customcert.log
+#    mode: '0644'
+#    state: directory
+#  ignore_errors: yes
 
 #- name: Extract details from each certificate
 #  shell:
@@ -37,12 +38,12 @@
 #  register: cert_details
 
 
-
-- name: Extract certname details
-  shell:
-    cert_name=$(basename {{ item.path }})
-  loop: "{{ cert_files.files }}"
-  register : cert_name_output
+#
+#- name: Extract certname details
+#  shell:
+#    cert_name=$(basename {{ item.path }})
+#  loop: "{{ cert_files.files }}"
+#  register : cert_name_output
 
 
 
