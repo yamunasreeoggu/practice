@@ -19,6 +19,7 @@
     patterns: "*.crt"
     recurse: yes
     file_type: file
+    follow: true
   register: cert_files
 
 - name: Display the found certificate files
