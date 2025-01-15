@@ -1,23 +1,26 @@
-#- name: remove existing cert_info directory
-#  ansible.builtin.file:
-#    path: /tmp/cert_info
-#    state: absent
-#
-#- name: recreate working directory
-#  ansible.builtin.file:
-#    path: /tmp/cert_info
-#    state: directory
+- name: remove existing cert_info directory
+  ansible.builtin.file:
+    path: /tmp/cert_info
+    state: absent
 
-- name: to get the list of certificates
-  ansible.builtin.find:
-    paths: /etc/pki/tls/certs
-    patterns: "*.crt"
-    recurse: yes
-  register: cert_files
+- name: recreate working directory
+  ansible.builtin.file:
+    path: /tmp/cert_info
+    state: directory
 
-- name: To print cert_files
-  debug:
-    var: cert_files
+- name: List certificates
+  shell: ls /etc/pki/tls/certs >> /tmp/cert_list
+
+#- name: to get the list of certificates
+#  ansible.builtin.find:
+#    paths: /etc/pki/tls/certs
+#    patterns: "*.crt"
+#    recurse: yes
+#  register: cert_files
+
+#- name: To print cert_files
+#  debug:
+#    var: cert_files
 
 #- name: To create customcertlog file
 #  file:
@@ -38,15 +41,15 @@
 
 
 #
-- name: Extract certname details
-  shell:
-    cert_name=$(basename {{ item.path }})
-  loop: "{{ cert_files.files }}"
-  register : cert_name_output
-
-- name: To print cert_name
-  debug:
-    var: cert_name_output
+#- name: Extract certname details
+#  shell:
+#    cert_name=$(basename {{ item.path }})
+#  loop: "{{ cert_files.files }}"
+#  register : cert_name_output
+#
+#- name: To print cert_name
+#  debug:
+#    var: cert_name_output
 
 
 
