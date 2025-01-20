@@ -12,9 +12,13 @@
   register: serial_number
   loop: "{{ cert_list.stdout_lines }}"
 
-- name: Display expiry date
-  debug:
-    var: serial_number
+- name: Create custom.log file
+  blockinfile:
+    path: /tmp/custom.log
+    block: |
+      Certificate_Name: {{ cert_list.stdout }}; Expiry: {{ expiry_date.stdout }}; Serial_Number: {{ serial_number.stdout }}
+    create: yes
+    state: present
 
 
 
