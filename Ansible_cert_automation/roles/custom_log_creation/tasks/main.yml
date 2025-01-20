@@ -14,7 +14,7 @@
 
 - name: Display expiry date
   debug:
-    var: expiry_date
+    var: serial_number
 
 
 
