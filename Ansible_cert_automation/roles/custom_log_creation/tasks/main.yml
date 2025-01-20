@@ -9,14 +9,14 @@
     echo "{{ item }}|{{ expiry_date }}|{{ serial_number }}"
   register: cert_info
   loop: "{{ cert_list.stdout_lines }}"
-  # Set the fact to store both expiry date and serial number
-  set_fact:
-    cert_details: "{{ cert_details | default([]) + [{'cert': item, 'expiry_date': cert_info.stdout.split('|')[1], 'serial_number': cert_info.stdout.split('|')[2]}] }}"
-
-- name: Display the expiry date and serial number
-  debug:
-    msg: "Certificate: {{ item.cert }} | Expiry Date: {{ item.expiry_date }} | Serial Number: {{ item.serial_number }}"
-  loop: "{{ cert_details }}"
+#  # Set the fact to store both expiry date and serial number
+#  set_fact:
+#    cert_details: "{{ cert_details | default([]) + [{'cert': item, 'expiry_date': cert_info.stdout.split('|')[1], 'serial_number': cert_info.stdout.split('|')[2]}] }}"
+#
+#- name: Display the expiry date and serial number
+#  debug:
+#    msg: "Certificate: {{ item.cert }} | Expiry Date: {{ item.expiry_date }} | Serial Number: {{ item.serial_number }}"
+#  loop: "{{ cert_details }}"
 
 
 
