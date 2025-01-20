@@ -7,18 +7,14 @@
   register: expiry_date
   loop: "{{ cert_list.stdout_lines }}"
 
-- name: Save expiry dates in a fact
-  set_fact:
-    cert_expiry_dates: "{{ cert_expiry_dates | default([]) + [{'cert': item, 'expiry_date': expiry_date.stdout}] }}"
+- name: Extract Serial Number of certificate
+  shell: "openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -serial | cut -d= -f2"
+  register: serial_number
   loop: "{{ cert_list.stdout_lines }}"
-  when: expiry_date is defined
 
-#- name: Extract Serial Number of certificate
-#  shell: "openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -serial | cut -d= -f2"
-#  register: serial_number
-#  loop: "{{ cert_list.stdout_lines }}"
-#
-#- name:
+- name: Display expiry date
+  debug:
+    var: expiry_date
 
 
 
