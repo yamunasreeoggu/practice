@@ -9,7 +9,7 @@
 
 - name: Extract Serial Number of certificate
   shell: "openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -serial | cut -d= -f2"
-  register: expiry_date
+  register: serial_number
   loop: "{{ cert_list.stdout_lines }}"
 
 - name: Display the expiry date and serial number
