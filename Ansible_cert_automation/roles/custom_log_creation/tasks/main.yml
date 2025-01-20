@@ -1,6 +1,7 @@
 - name: To list certificates
   shell: find /etc/pki/tls/certs -name "*.crt" -exec basename {} \;
   register: cert_list
+# output of cert_list is a list of two certificates
 
 - name: Extract Expiry date of certificate
   shell: "openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -enddate | cut -d= -f2"
@@ -16,7 +17,9 @@
   blockinfile:
     path: /tmp/custom.log
     block: |
-      Certificate_Name: {{ cert_list.stdout }}; Expiry: {{ expiry_date.stdout }}; Serial_Number: {{ serial_number.stdout }}
+      {% for cert in cert_list.stdout_lines %}
+      Certificate_Name: {{ cert }}; Expiry: {{ expiry_date.results[loop.index0].stdout }}; Serial_Number: {{ serial_number.results[loop.index0].stdout }}
+      {% endfor %}
     create: yes
     state: present
 
