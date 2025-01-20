@@ -1,7 +1,6 @@
 - name: To list certificates
   shell: find /etc/pki/tls/certs -name "*.crt" -exec basename {} \;
   register: cert_list
-# output of cert_list is a list of two certificates
 
 - name: Extract Expiry date of certificate
   shell: "openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -enddate | cut -d= -f2"
