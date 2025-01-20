@@ -2,10 +2,10 @@
   shell: find /etc/pki/tls/certs -name "*.crt" -exec basename {} \;
   register: cert_list
 
-#- name: Extract Expiry date and Serial Number of certificates
-#  shell: |
-#    expiry_date=$(openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -enddate | cut -d= -f2)
-#    serial_number=$(openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -serial | cut -d= -f2)
+- name: Extract Expiry date and Serial Number of certificates
+  shell: |
+    expiry_date=$(openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -enddate | cut -d= -f2)
+    serial_number=$(openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -serial | cut -d= -f2)
 ##    echo "{{ item }}|{{ expiry_date }}|{{ serial_number }}"
 #  register: cert_info
 #  loop: "{{ cert_list.stdout_lines }}"
