@@ -14,7 +14,7 @@
 
 - name: Display the expiry date and serial number
   debug:
-    msg: "Certificate: {{ item }} | Expiry Date: {{ expiry_date.stdout }} | Serial Number: {{ serial_number.stdout }}"
+    msg: "Certificate: {{ item }} | Expiry Date: {{ expiry_date.results[loop.index0].stdout }} | Serial Number: {{ serial_number.results[loop.index0].stdout }}"
   loop: "{{ cert_list.stdout_lines }}"
 
 
