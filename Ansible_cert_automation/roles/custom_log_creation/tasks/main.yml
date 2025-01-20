@@ -6,16 +6,21 @@
   shell: "openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -enddate | cut -d= -f2"
   register: expiry_date
   loop: "{{ cert_list.stdout_lines }}"
+  set_fact:
+    cert_expiries: "{{ cert_expiries | default([]) + [{'cert': item, 'expiry_date': expiry_date.stdout}] }}"
 
 - name: Extract Serial Number of certificate
   shell: "openssl x509 -in /etc/pki/tls/certs/{{ item }} -noout -serial | cut -d= -f2"
   register: serial_number
   loop: "{{ cert_list.stdout_lines }}"
+  set_fact:
+    cert_serials: "{{ cert_serials | default([]) + [{'cert': item, 'serial_number': serial_number.stdout}] }}"
 
 - name: Display the expiry date and serial number
   debug:
-    msg: "Certificate: {{ item }} | Expiry Date: {{ expiry_date.results[loop.index0].stdout }} | Serial Number: {{ serial_number.results[loop.index0].stdout }}"
-  loop: "{{ cert_list.stdout_lines }}"
+    msg: "Certificate: {{ item.cert }} | Expiry Date: {{ item.expiry_date }} | Serial Number: {{ item.serial_number }}"
+  loop: "{{ cert_expiries }}"
+  when: cert_expiries is defined and cert_serials is defined
 
 
 
